@@ -1,0 +1,212 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─────────────────────────────────────────────
+    // HELPER FUNCTIONS
+    // ─────────────────────────────────────────────
+
+    // Is the request from a signed-in user?
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    // Is the requesting user the owner of this document?
+    function isOwner(uid) {
+      return isAuth() && request.auth.uid == uid;
+    }
+
+    // Is the requesting user either the senior or teen in a paired record?
+    function isParticipant(seniorId, teenId) {
+      return isAuth() &&
+        (request.auth.uid == seniorId || request.auth.uid == teenId);
+    }
+
+    // Fetch the requesting user's profile from Firestore
+    function myProfile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Is the requesting user a senior?
+    function isSenior() {
+      return isAuth() && myProfile().role == 'senior';
+    }
+
+    // Is the requesting user a teen?
+    function isTeen() {
+      return isAuth() && myProfile().role == 'teen';
+    }
+
+    // Is the requesting user matched with the given partner?
+    function isMatchedWith(partnerId) {
+      return isAuth() && myProfile().matchedPartnerId == partnerId;
+    }
+
+    // Does the incoming write only touch allowed fields?
+    function onlyUpdates(allowedFields) {
+      return request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(allowedFields);
+    }
+
+    // ─────────────────────────────────────────────
+    // USERS COLLECTION
+    // /users/{userId}
+    // ─────────────────────────────────────────────
+    match /users/{userId} {
+
+      // Any authenticated user can read another user's public profile.
+      // Needed for match lookups and partner profile display.
+      allow read: if isAuth();
+
+      // Only the owner can create their own profile document.
+      allow create: if isOwner(userId)
+        && request.resource.data.uid == userId
+        && request.resource.data.role in ['senior', 'teen']
+        && request.resource.data.keys().hasAll(['uid', 'role', 'email']);
+
+      // Owner can update their own profile.
+      // Prevent role changes after creation.
+      allow update: if isOwner(userId)
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.uid == userId;
+
+      // No one can delete a user profile through the client SDK.
+      allow delete: if false;
+    }
+
+    // ─────────────────────────────────────────────
+    // CURRICULUM COLLECTION
+    // /curriculum/{progressId}
+    // progressId format: "{userId}_{trackId}"
+    // ─────────────────────────────────────────────
+    match /curriculum/{progressId} {
+
+      // Owner can read their own progress.
+      // Matched partner can also read (teen sees senior progress and vice versa).
+      allow read: if isAuth() && (
+        resource.data.userId == request.auth.uid ||
+        isMatchedWith(resource.data.userId)
+      );
+
+      // Only the owner can create their own progress record.
+      allow create: if isAuth()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'trackId', 'sessionsCompleted', 'skillsUnlocked'])
+        && request.resource.data.sessionsCompleted == 0
+        && request.resource.data.sessionsCompleted is int;
+
+      // Only the owner can update, and sessionsCompleted can only go up (never reset).
+      allow update: if isAuth()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.sessionsCompleted >= resource.data.sessionsCompleted
+        && request.resource.data.sessionsCompleted <= 3
+        && request.resource.data.sessionsCompleted is int;
+
+      allow delete: if false;
+    }
+
+    // ─────────────────────────────────────────────
+    // SESSIONS COLLECTION
+    // /sessions/{sessionId}
+    // ─────────────────────────────────────────────
+    match /sessions/{sessionId} {
+
+      // Both the senior and teen in the session can read it.
+      allow read: if isParticipant(resource.data.seniorId, resource.data.teenId);
+
+      // Either participant can create a session record.
+      allow create: if isAuth()
+        && (
+          request.resource.data.seniorId == request.auth.uid ||
+          request.resource.data.teenId == request.auth.uid
+        )
+        && request.resource.data.keys().hasAll(['seniorId', 'teenId', 'status'])
+        && request.resource.data.status == 'scheduled';
+
+      // Either participant can update (e.g. mark complete), but seniorId/teenId are immutable.
+      allow update: if isParticipant(resource.data.seniorId, resource.data.teenId)
+        && request.resource.data.seniorId == resource.data.seniorId
+        && request.resource.data.teenId == resource.data.teenId
+        && request.resource.data.status in ['scheduled', 'completed', 'cancelled'];
+
+      allow delete: if false;
+    }
+
+    // ─────────────────────────────────────────────
+    // EXCHANGE LOG COLLECTION
+    // /exchangeLog/{entryId}
+    // ─────────────────────────────────────────────
+    match /exchangeLog/{entryId} {
+
+      // Both participants can read exchange entries they're part of.
+      allow read: if isParticipant(resource.data.seniorId, resource.data.teenId);
+
+      // Either participant can create an entry for their shared session.
+      allow create: if isAuth()
+        && (
+          request.resource.data.seniorId == request.auth.uid ||
+          request.resource.data.teenId == request.auth.uid
+        )
+        && request.resource.data.keys().hasAll(['seniorId', 'teenId', 'sessionId'])
+        // Enforce max length on text entries to match UI limits
+        && (!('teenEntry' in request.resource.data) || request.resource.data.teenEntry.size() <= 150)
+        && (!('seniorEntry' in request.resource.data) || request.resource.data.seniorEntry.size() <= 150);
+
+      // Participants can update only their own entry field.
+      // Teen can update teenEntry, senior can update seniorEntry.
+      allow update: if isParticipant(resource.data.seniorId, resource.data.teenId)
+        && request.resource.data.seniorId == resource.data.seniorId
+        && request.resource.data.teenId == resource.data.teenId
+        && request.resource.data.sessionId == resource.data.sessionId
+        && (
+          // Teen updating their own entry only
+          (
+            request.auth.uid == resource.data.teenId &&
+            onlyUpdates(['teenEntry', 'lastUpdated'])
+          ) ||
+          // Senior updating their own entry only
+          (
+            request.auth.uid == resource.data.seniorId &&
+            onlyUpdates(['seniorEntry', 'lastUpdated'])
+          )
+        );
+
+      allow delete: if false;
+    }
+
+    // ─────────────────────────────────────────────
+    // SCAM SCORES COLLECTION
+    // /scamScores/{scoreId}
+    // ─────────────────────────────────────────────
+    match /scamScores/{scoreId} {
+
+      // Only the owner can read their own scam scores.
+      allow read: if isAuth() && resource.data.userId == request.auth.uid;
+
+      // Only the owner can log their own score.
+      allow create: if isAuth()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'scenarioType', 'difficulty', 'correct', 'score'])
+        && request.resource.data.score is int
+        && request.resource.data.score >= 0
+        && request.resource.data.score <= 100
+        && request.resource.data.difficulty is int
+        && request.resource.data.difficulty >= 1
+        && request.resource.data.difficulty <= 5
+        && request.resource.data.correct is bool;
+
+      // Scores are immutable once written.
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    // ─────────────────────────────────────────────
+    // DENY ALL OTHER PATHS
+    // ─────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

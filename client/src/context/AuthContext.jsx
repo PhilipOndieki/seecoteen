@@ -17,9 +17,26 @@ export function AuthProvider({ children }) {
       if (user) {
         try {
           const profile = await getUserProfile(user.uid)
-          setUserProfile(profile)
-        } catch {
-          setUserProfile(null)
+          if (!profile) {
+            setUserProfile({
+              uid: user.uid,
+              email: user.email,
+              name: user.displayName || '',
+              role: 'senior',
+              onboardingComplete: false,
+            })
+          } else {
+            setUserProfile(profile)
+          }
+        } catch (err) {
+          console.error('Failed to load user profile:', err)
+          setUserProfile({
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName || '',
+            role: 'senior',
+            onboardingComplete: false,
+          })
         }
       } else {
         setUserProfile(null)
