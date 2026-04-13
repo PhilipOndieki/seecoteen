@@ -20,7 +20,7 @@ function CallToAction() {
         </h2>
         <p className="font-body text-white/85 text-lg mb-10 leading-relaxed">
           Whether you want to learn technology or share what you know — there is someone waiting to meet you.
-          Join GenBridge today, completely free.
+          Join Seecoteen today, completely free.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -45,10 +45,6 @@ function CallToAction() {
             Join as a Teen Tutor
           </button>
         </div>
-
-        <p className="text-white/60 text-sm mt-8 font-body">
-          A program of GenLink — 501(c)(3) nonprofit &bull; Austin, TX &bull; No ads, no fees, ever.
-        </p>
       </div>
     </section>
   )

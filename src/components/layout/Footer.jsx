@@ -13,13 +13,10 @@ function Footer() {
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center" aria-hidden="true">
                 <span className="font-heading font-bold text-white text-lg">G</span>
               </div>
-              <span className="font-heading font-bold text-white text-xl">GenBridge</span>
+              <span className="font-heading font-bold text-white text-xl">Seecoteen</span>
             </div>
             <p className="text-white/70 font-body text-sm leading-relaxed">
               Where age is no barrier. Where wisdom meets the future.
-            </p>
-            <p className="text-white/50 font-body text-xs mt-3">
-              A program of GenLink, a 501(c)(3) nonprofit based in Austin, TX.
             </p>
           </div>
 
@@ -54,10 +51,10 @@ function Footer() {
               Our Mission
             </h3>
             <p className="text-white/70 font-body text-sm leading-relaxed">
-              GenBridge connects senior citizens with teenage tutors for structured technology literacy sessions — while enabling a two-way exchange where seniors share their life and professional wisdom in return.
+              Seecoteen connects senior citizens with teenage tutors for structured technology literacy sessions while enabling a two-way exchange where seniors share their life and professional wisdom in return.
             </p>
             <p className="text-white/50 font-body text-xs mt-4">
-              Together we reduce the digital divide — one session at a time.
+              Together we reduce the digital divide, one session at a time.
             </p>
           </div>
         </div>

@@ -12,7 +12,7 @@ const steps = [
     seniorTitle: 'Tell us about yourself',
     seniorDesc: 'Share your professional background, what you\'d like to learn, and what knowledge you\'re excited to pass on. It takes about 3 minutes.',
     teenTitle: 'Share your interests and skills',
-    teenDesc: 'Tell us what subjects you love, why you want to volunteer, and what career paths interest you. We\'ll use this to find your perfect match.',
+    teenDesc: 'Tell us what subjects you love, why you want to volunteer, and what career paths interest you.',
   },
   {
     number: '02',
@@ -22,9 +22,9 @@ const steps = [
       </svg>
     ),
     seniorTitle: 'Get matched with your tutor',
-    seniorDesc: 'Our AI considers your background and your tutor\'s interests to create a meaningful connection — not just a random pairing.',
+    seniorDesc: 'Our AI considers your background and your tutor\'s interests to create a meaningful connection.',
     teenTitle: 'Meet your senior partner',
-    teenDesc: 'You\'ll be paired with a senior whose professional life connects with your interests. A retired engineer paired with a teen who loves building things — that\'s GenBridge.',
+    teenDesc: 'You\'ll be paired with a senior whose professional life connects with your interests.',
   },
   {
     number: '03',
@@ -35,7 +35,7 @@ const steps = [
       </svg>
     ),
     seniorTitle: 'Learn at your own pace',
-    seniorDesc: 'Each session is guided, simple, and designed so you never feel rushed. Your tutor follows a structured plan — so you\'ll always know what to expect.',
+    seniorDesc: 'Each session is guided, simple, and designed so you never feel rushed.',
     teenTitle: 'Teach, earn hours, grow together',
     teenDesc: 'Follow structured session guides, log your hours, collect wisdom from your senior, and build a portfolio of impact for college applications.',
   },
@@ -53,7 +53,7 @@ function HowItWorks() {
             id="how-it-works-heading"
             className="font-heading text-3xl sm:text-4xl text-primary mb-4"
           >
-            How GenBridge works
+            How Seecoteen works
           </h2>
           <p className="font-body text-primary/70 text-lg max-w-2xl mx-auto">
             Three simple steps. Two people. One powerful exchange.

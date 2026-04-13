@@ -8,7 +8,7 @@ function Hero() {
 
   return (
     <section
-      aria-label="GenBridge hero"
+      aria-label="Seecoteen hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background image with overlay */}
@@ -43,16 +43,13 @@ function Hero() {
         <h2 className="font-body text-accent text-2xl sm:text-3xl mb-6 font-normal">
           Where wisdom meets the future.
         </h2>
-        <p className="text-white/85 font-body text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-          GenBridge connects seniors and teens for tech learning and life wisdom — because knowledge flows both ways.
-        </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             variant="primary"
             size="lg"
             onClick={() => navigate(`${ROUTES.AUTH}?role=senior`)}
-            ariaLabel="Join GenBridge as a senior citizen"
+            ariaLabel="Join Seecoteen as a senior citizen"
             className="text-lg px-8 py-4"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -62,7 +59,7 @@ function Hero() {
           </Button>
           <button
             onClick={() => navigate(`${ROUTES.AUTH}?role=teen`)}
-            aria-label="Join GenBridge as a teen tutor"
+            aria-label="Join Seecoteen as a teen tutor"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-body font-medium text-white border-2 border-white rounded-btn hover:bg-white hover:text-primary transition-all duration-200 min-h-[48px] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -71,29 +68,7 @@ function Hero() {
             I&apos;m a Teen Tutor
           </button>
         </div>
-
-        {/* Social proof */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 text-white/70 text-sm font-body">
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            Free to join
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            Nonprofit — no ads, ever
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
-            Safe, structured sessions
-          </div>
         </div>
-      </div>
     </section>
   )
 }

@@ -128,7 +128,7 @@ function Auth() {
             <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center" aria-hidden="true">
               <span className="font-heading font-bold text-white text-xl">G</span>
             </div>
-            <span className="font-heading font-bold text-primary text-2xl">GenBridge</span>
+            <span className="font-heading font-bold text-primary text-2xl">Seecoteen</span>
           </div>
           <h1 className="font-heading text-3xl text-primary mt-2">
             {mode === 'signup' ? 'Create your account' : 'Welcome back'}
@@ -239,7 +239,7 @@ function Auth() {
               variant="primary"
               fullWidth
               loading={loading}
-              ariaLabel={mode === 'signup' ? 'Create your GenBridge account' : 'Sign in to GenBridge'}
+              ariaLabel={mode === 'signup' ? 'Create your Seecoteen account' : 'Sign in to Seecoteen'}
               className="mt-6"
             >
               {mode === 'signup' ? 'Create my account' : 'Sign in'}

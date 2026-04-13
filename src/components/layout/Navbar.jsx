@@ -46,12 +46,12 @@ function Navbar() {
         <Link
           to={ROUTES.HOME}
           className="flex items-center gap-2 focus-visible:outline-accent rounded-sm"
-          aria-label="GenBridge home"
+          aria-label="Seecoteen home"
         >
           <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center" aria-hidden="true">
             <span className="font-heading font-bold text-white text-lg">G</span>
           </div>
-          <span className="font-heading font-bold text-primary text-xl">GenBridge</span>
+          <span className="font-heading font-bold text-primary text-xl">Seecoteen</span>
         </Link>
 
         {/* Desktop nav links */}
@@ -84,7 +84,7 @@ function Navbar() {
                 size="sm"
                 onClick={handleSignOut}
                 loading={signingOut}
-                ariaLabel="Sign out of GenBridge"
+                ariaLabel="Sign out of Seecoteen"
               >
                 Sign out
               </Button>
@@ -103,7 +103,7 @@ function Navbar() {
                 variant="primary"
                 size="sm"
                 onClick={() => navigate(`${ROUTES.AUTH}?role=senior`)}
-                ariaLabel="Join GenBridge"
+                ariaLabel="Join Seecoteen"
               >
                 Join free
               </Button>
@@ -156,7 +156,7 @@ function Navbar() {
                 <button
                   onClick={handleSignOut}
                   className="w-full text-left py-3 px-4 rounded-lg font-body text-base text-error hover:bg-red-50 transition-colors min-h-[48px]"
-                  aria-label="Sign out of GenBridge"
+                  aria-label="Sign out of Seecoteen"
                 >
                   Sign out
                 </button>
@@ -169,7 +169,7 @@ function Navbar() {
                 variant="primary"
                 fullWidth
                 onClick={() => { navigate(`${ROUTES.AUTH}?role=senior`); setMenuOpen(false) }}
-                ariaLabel="Join GenBridge"
+                ariaLabel="Join Seecoteen"
               >
                 Join free
               </Button>
@@ -177,7 +177,7 @@ function Navbar() {
                 variant="secondary"
                 fullWidth
                 onClick={() => { navigate(ROUTES.AUTH); setMenuOpen(false) }}
-                ariaLabel="Sign in to GenBridge"
+                ariaLabel="Sign in to Seecoteen"
               >
                 Sign in
               </Button>

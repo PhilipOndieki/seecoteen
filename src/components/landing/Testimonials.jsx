@@ -9,7 +9,7 @@ const testimonials = [
     role: 'senior',
     background: 'Retired nurse',
     quote:
-      'I was terrified of my new smartphone. My granddaughter set it up and I couldn\'t remember a thing. Then Ethan joined as my tutor, and everything changed. He was so patient — he never made me feel silly. Now I video call my daughter in Denver every Sunday. I never thought I\'d say this, but I actually look forward to using my phone.',
+      'I was terrified of my new smartphone. My granddaughter set it up and I couldn\'t remember a thing. Then Ethan joined as my tutor, and everything changed. Now I video call my daughter in Denver every Sunday. I never thought I\'d say this, but I actually look forward to using my phone.',
   },
   {
     name: 'Ethan K.',
@@ -17,7 +17,7 @@ const testimonials = [
     role: 'teen',
     background: 'Aspiring engineer',
     quote:
-      'I thought I was just helping someone learn to use their phone. But Margaret spent 30 minutes telling me about what nursing was like in the 1970s — no computers, no digital records, all memory and handwriting. It completely changed how I think about healthcare technology. I\'m putting this on my college applications, but honestly I\'d keep doing it even if I wasn\'t.',
+      'I thought I was just helping someone learn to use their phone. But Margaret spent 30 minutes telling me about what nursing was like in the 1970s with no computers, no digital records, all memory and handwriting. It completely changed how I think about healthcare technology.',
   },
 ]
 

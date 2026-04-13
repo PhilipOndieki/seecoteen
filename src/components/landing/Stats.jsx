@@ -5,19 +5,16 @@ const stats = [
     number: '22 Million',
     label: 'seniors lack home broadband access',
     detail: 'Left behind as essential services move online.',
-    source: 'Pew Research Center, 2023',
   },
   {
     number: '$4.8 Billion',
     label: 'lost by seniors to scams in 2024',
     detail: 'Digital literacy is the most powerful protection.',
-    source: 'FBI Internet Crime Complaint Center (IC3), 2024',
   },
   {
     number: '60%',
     label: 'of seniors feel smartphones are too complicated',
-    detail: 'Not because they can\'t learn — because no one has taught them.',
-    source: 'AARP Technology Survey, 2023',
+    detail: 'Not because they can\'t learn but because no one has taught them.',
   },
 ]
 
@@ -56,7 +53,6 @@ function Stats() {
                 {stat.label}
               </p>
               <p className="font-body text-white/60 text-base mb-4">{stat.detail}</p>
-              <p className="font-body text-white/35 text-xs">Source: {stat.source}</p>
             </article>
           ))}
         </div>

@@ -164,7 +164,7 @@ function Onboarding() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="font-heading text-3xl text-primary mb-2">
-            {role === ROLES.SENIOR ? 'Welcome to GenBridge' : 'Set up your profile'}
+            {role === ROLES.SENIOR ? 'Welcome to Seecoteen' : 'Set up your profile'}
           </h1>
           <p className="font-body text-primary/60">
             Step {step} of {totalSteps} — {stepTitles[role]?.[step - 1]}
@@ -302,7 +302,7 @@ function Onboarding() {
           {step === 4 && role === ROLES.TEEN && (
             <div className="animate-fadeIn">
               <h2 className="font-heading text-2xl text-primary mb-2">
-                Why do you want to join GenBridge?
+                Why do you want to join Seecoteen?
               </h2>
               <p className="font-body text-primary/60 mb-5">
                 Optional — but your senior would love to know.
@@ -319,7 +319,7 @@ function Onboarding() {
                   rows={4}
                   maxLength={200}
                   className="input-field resize-none"
-                  aria-label="Why do you want to join GenBridge"
+                  aria-label="Why do you want to join Seecoteen"
                 />
                 <p className="text-xs text-gray-400 text-right">{joinReason.length}/200</p>
               </div>

@@ -57,7 +57,7 @@ function SeniorDashboard({ profile }) {
         <h1 className="font-heading text-3xl sm:text-4xl text-primary">
           Good {greeting}, {profile.name}.
         </h1>
-        <p className="font-body text-primary/60 mt-1">Welcome back to GenBridge.</p>
+        <p className="font-body text-primary/60 mt-1">Welcome back to Seecoteen.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

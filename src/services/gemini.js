@@ -49,7 +49,7 @@ export async function generateMatch(seniorProfile, teenProfile) {
   const seniorSummary = `Name: ${seniorProfile.name}, Background: ${seniorProfile.background}, Learning goals: ${(seniorProfile.interests || []).join(', ')}`
   const teenSummary = `Name: ${teenProfile.name}, Interest areas: ${(teenProfile.interests || []).join(', ')}, Why they joined: ${teenProfile.joinReason || 'Not specified'}`
 
-  const prompt = `You are a warm, human matchmaker for GenBridge, a platform connecting senior citizens with teen tech tutors. Given this senior profile: ${seniorSummary} and this teen profile: ${teenSummary}, write a single warm sentence in plain English explaining why they are a great match. Focus on the connection between the senior's professional background and the teen's interests. Maximum 40 words. No jargon. Sound human and encouraging.`
+  const prompt = `You are a warm, human matchmaker for Seecoteen, a platform connecting senior citizens with teen tech tutors. Given this senior profile: ${seniorSummary} and this teen profile: ${teenSummary}, write a single warm sentence in plain English explaining why they are a great match. Focus on the connection between the senior's professional background and the teen's interests. Maximum 40 words. No jargon. Sound human and encouraging.`
 
   return callGemini(prompt)
 }
