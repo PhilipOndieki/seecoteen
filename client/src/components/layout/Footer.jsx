@@ -51,7 +51,7 @@ function Footer() {
               Our Mission
             </h3>
             <p className="text-white/70 font-body text-sm leading-relaxed">
-              Seecoteen connects senior citizens with teenage tutors for structured technology literacy sessions while enabling a two-way exchange where seniors share their life and professional wisdom in return.
+              To connect senior citizens with teenage tutors for structured technology literacy sessions while enabling a two-way exchange where seniors share their life and professional wisdom in return.
             </p>
             <p className="text-white/50 font-body text-xs mt-4">
               Together we reduce the digital divide, one session at a time.
@@ -61,10 +61,7 @@ function Footer() {
 
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-white/40 font-body text-xs text-center sm:text-left">
-            &copy; {new Date().getFullYear()} GenLink, Inc. All rights reserved.
-          </p>
-          <p className="text-white/40 font-body text-xs text-center sm:text-right">
-            Built with care for every generation.
+            &copy; {new Date().getFullYear()} Seecoteen, Inc. All rights reserved.
           </p>
         </div>
       </div>
