@@ -49,7 +49,7 @@ function Navbar() {
           aria-label="Seecoteen home"
         >
           <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center" aria-hidden="true">
-            <span className="font-heading font-bold text-white text-lg">G</span>
+            <span className="font-heading font-bold text-white text-lg">S</span>
           </div>
           <span className="font-heading font-bold text-primary text-xl">Seecoteen</span>
         </Link>
@@ -90,24 +90,14 @@ function Navbar() {
               </Button>
             </div>
           ) : (
-            <>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate(`${ROUTES.AUTH}?role=senior`)}
-                ariaLabel="Sign in as a senior citizen"
-              >
-                Sign in
-              </Button>
               <Button
                 variant="primary"
                 size="sm"
-                onClick={() => navigate(`${ROUTES.AUTH}?role=senior`)}
+                onClick={() => navigate(ROUTES.AUTH)}
                 ariaLabel="Join Seecoteen"
               >
                 Join free
               </Button>
-            </>
           )}
         </div>
 

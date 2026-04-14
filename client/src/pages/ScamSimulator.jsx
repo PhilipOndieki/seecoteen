@@ -127,7 +127,7 @@ function ScamSimulator() {
           <Card>
             <h2 className="font-heading text-2xl text-primary mb-2">How does this work?</h2>
             <p className="font-body text-primary/70 leading-relaxed mb-4">
-              You&apos;ll be shown a realistic scam as it would appear in real life — an email, a text message, a phone call, or an investment offer. Read it carefully, then decide: does something feel wrong?
+              You&apos;ll be shown a realistic scam as it would appear in real life either an email, a text message, a phone call, or an investment offer. Read it carefully, then decide: does something feel wrong?
             </p>
             <ol className="space-y-2 list-none">
               {[

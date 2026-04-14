@@ -126,7 +126,7 @@ function Auth() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-2">
             <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center" aria-hidden="true">
-              <span className="font-heading font-bold text-white text-xl">G</span>
+              <span className="font-heading font-bold text-white text-xl">S</span>
             </div>
             <span className="font-heading font-bold text-primary text-2xl">Seecoteen</span>
           </div>

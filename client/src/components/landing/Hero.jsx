@@ -1,10 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../ui/Button.jsx'
 import { ROUTES } from '../../utils/constants.js'
+import { signInWithGoogle } from '../../services/auth.js'
+import { createUserProfile, getUserProfile } from '../../services/users.js'
 
 function Hero() {
   const navigate = useNavigate()
+  const [loadingRole, setLoadingRole] = useState(null) // 'senior' | 'teen' | null
+
+  const handleGoogleSignIn = async (role) => {
+    setLoadingRole(role)
+    try {
+      const cred = await signInWithGoogle()
+      const existing = await getUserProfile(cred.user.uid)
+      if (!existing) {
+        await createUserProfile(cred.user.uid, {
+          role,
+          email: cred.user.email,
+          name: cred.user.displayName || '',
+          onboardingComplete: false,
+        })
+        navigate(ROUTES.ONBOARDING, { replace: true })
+      } else if (existing.onboardingComplete) {
+        navigate(ROUTES.DASHBOARD, { replace: true })
+      } else {
+        navigate(ROUTES.ONBOARDING, { replace: true })
+      }
+    } catch (err) {
+      // User cancelled popup or network error — fail silently, stay on landing
+      console.error('Google sign-in failed:', err)
+    } finally {
+      setLoadingRole(null)
+    }
+  }
 
   return (
     <section
@@ -24,12 +53,12 @@ function Hero() {
       {/* Attribution */}
       <p className="absolute bottom-4 right-4 text-white/40 text-xs font-body z-10">
         Photo by{' '}
-        <a
+        
           href="https://unsplash.com/@johnschno"
           target="_blank"
           rel="noopener noreferrer"
           className="underline hover:text-white/70"
-        >
+        <a >
           John Schnobrich
         </a>{' '}
         on Unsplash
@@ -48,27 +77,36 @@ function Hero() {
           <Button
             variant="primary"
             size="lg"
-            onClick={() => navigate(`${ROUTES.AUTH}?role=senior`)}
-            ariaLabel="Join Seecoteen as a senior citizen"
+            onClick={() => handleGoogleSignIn('senior')}
+            loading={loadingRole === 'senior'}
+            disabled={loadingRole !== null}
+            ariaLabel="Join Seecoteen as a senior citizen using Google"
             className="text-lg px-8 py-4"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
+            {loadingRole !== 'senior' && (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            )}
             I&apos;m a Senior
           </Button>
           <button
-            onClick={() => navigate(`${ROUTES.AUTH}?role=teen`)}
-            aria-label="Join Seecoteen as a teen tutor"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-body font-medium text-white border-2 border-white rounded-btn hover:bg-white hover:text-primary transition-all duration-200 min-h-[48px] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+            onClick={() => handleGoogleSignIn('teen')}
+            disabled={loadingRole !== null}
+            aria-label="Join Seecoteen as a teen tutor using Google"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-body font-medium text-white border-2 border-white rounded-btn hover:bg-white hover:text-primary transition-all duration-200 min-h-[48px] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
+            {loadingRole === 'teen' ? (
+              <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            )}
             I&apos;m a Teen Tutor
           </button>
         </div>
-        </div>
+      </div>
     </section>
   )
 }

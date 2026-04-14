@@ -71,7 +71,7 @@ export const CURRICULUM_TRACKS = [
     title: 'Smartphone Basics',
     icon: 'smartphone',
     color: 'blue',
-    description: 'Learn the fundamentals of your smartphone — from turning it on to sending your first text.',
+    description: 'Learn the fundamentals of your smartphone, from turning it on to sending your first text.',
     sessions: [
       {
         number: 1,
@@ -269,7 +269,7 @@ export const CURRICULUM_TRACKS = [
     title: 'Understanding AI Tools',
     icon: 'sparkles',
     color: 'amber',
-    description: 'Explore artificial intelligence tools like ChatGPT and Claude — what they can do and when to be careful.',
+    description: 'Explore artificial intelligence tools like ChatGPT and Claude and what they can do and when to be careful.',
     sessions: [
       {
         number: 1,
