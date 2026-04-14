@@ -5,21 +5,29 @@ import Card from '../ui/Card.jsx'
 import Button from '../ui/Button.jsx'
 import ProgressBar from '../ui/ProgressBar.jsx'
 import Loader from '../ui/Loader.jsx'
+import Toast from '../ui/Toast.jsx'
+import UnassignModal from './UnassignModal.jsx'
 import { useMatch } from '../../hooks/useMatch.js'
+import { useAuth } from '../../hooks/useAuth.js'
 import { getAllProgressForUser } from '../../services/curriculum.js'
 import { getTotalTeachingHours } from '../../services/sessions.js'
 import { getSeniorWisdomForTeen, getLatestExchangeEntry } from '../../services/exchange.js'
+import { unmatchUsers } from '../../services/users.js'
 import { CURRICULUM_TRACKS, ROUTES } from '../../utils/constants.js'
 import { getGreetingTime } from '../../utils/helpers.js'
 
 function TeenDashboard({ profile }) {
   const navigate = useNavigate()
   const { partner, loading: matchLoading } = useMatch()
+  const { refreshUserProfile } = useAuth()
   const [teachingHours, setTeachingHours] = useState(0)
   const [wisdomCount, setWisdomCount] = useState(0)
   const [curriculumData, setCurriculumData] = useState([])
   const [latestEntry, setLatestEntry] = useState(null)
   const [dataLoading, setDataLoading] = useState(true)
+  const [unassignModalOpen, setUnassignModalOpen] = useState(false)
+  const [unassigning, setUnassigning] = useState(false)
+  const [toast, setToast] = useState({ message: '', type: 'success' })
 
   useEffect(() => {
     async function loadData() {
@@ -44,6 +52,26 @@ function TeenDashboard({ profile }) {
     loadData()
   }, [profile.uid])
 
+  const handleUnassignConfirm = async () => {
+    if (!profile.uid || !partner?.uid) return
+    setUnassigning(true)
+    try {
+      await unmatchUsers(profile.uid, partner.uid)
+      await refreshUserProfile()
+      setUnassignModalOpen(false)
+      setToast({
+        message: `You've been unassigned from ${partner.name}. Find a new senior to mentor.`,
+        type: 'info',
+      })
+      // Brief pause for toast readability then redirect to directory
+      setTimeout(() => navigate(ROUTES.SENIOR_DIRECTORY, { replace: true }), 2000)
+    } catch {
+      setToast({ message: 'Something went wrong. Please try again.', type: 'error' })
+    } finally {
+      setUnassigning(false)
+    }
+  }
+
   const greeting = getGreetingTime()
   const greetings = {
     morning: `Good morning, ${profile.name}!`,
@@ -63,6 +91,12 @@ function TeenDashboard({ profile }) {
 
   return (
     <div className="space-y-6 animate-fadeIn">
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: '', type: 'success' })}
+      />
+
       {/* Greeting */}
       <div>
         <h1 className="font-heading text-3xl sm:text-4xl text-primary">
@@ -95,14 +129,24 @@ function TeenDashboard({ profile }) {
                   <p className="font-body text-primary/50 text-sm mb-3 italic">
                     {profile.matchReason || 'A wonderful match.'}
                   </p>
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => navigate(ROUTES.CURRICULUM)}
-                    ariaLabel={`View your session guide for ${partner.name}`}
-                  >
-                    Start session guide
-                  </Button>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => navigate(ROUTES.CURRICULUM)}
+                      ariaLabel={`View your session guide for ${partner.name}`}
+                    >
+                      Start session guide
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => setUnassignModalOpen(true)}
+                      ariaLabel={`Unassign from ${partner.name}`}
+                    >
+                      Unassign
+                    </Button>
+                  </div>
                 </>
               ) : (
                 <>
@@ -118,7 +162,6 @@ function TeenDashboard({ profile }) {
                     Find a Senior →
                   </Button>
                 </>
-                
               )}
             </div>
           </div>
@@ -264,6 +307,17 @@ function TeenDashboard({ profile }) {
           </Button>
         </div>
       </Card>
+
+      {/* Unassign confirmation modal */}
+      {partner && (
+        <UnassignModal
+          isOpen={unassignModalOpen}
+          onClose={() => setUnassignModalOpen(false)}
+          onConfirm={handleUnassignConfirm}
+          seniorName={partner.name}
+          unassigning={unassigning}
+        />
+      )}
     </div>
   )
 }

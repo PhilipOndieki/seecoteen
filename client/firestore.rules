@@ -55,26 +55,29 @@ service cloud.firestore {
     // ─────────────────────────────────────────────
     match /users/{userId} {
 
-      // Any authenticated user can read another user's public profile.
-      // Needed for match lookups and partner profile display.
+      // Any authenticated user can read profiles
       allow read: if isAuth();
 
-      // Only the owner can create their own profile document.
+      // Only the owner can create their own profile
       allow create: if isOwner(userId)
         && request.resource.data.uid == userId
         && request.resource.data.role in ['senior', 'teen']
         && request.resource.data.keys().hasAll(['uid', 'role', 'email']);
 
-      // Owner can update their own profile.
-      // Prevent role changes after creation.
-      allow update: if isOwner(userId)
-        && request.resource.data.role == resource.data.role
-        && request.resource.data.uid == userId;
+      // Owner can update their own profile — role is immutable
+      // OR: an authenticated user can set matchedPartnerId and matchReason
+      // on another user's document (for the matching flow)
+      allow update: if (
+          isOwner(userId)
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.uid == userId
+        ) || (
+          isAuth()
+          && onlyUpdates(['matchedPartnerId', 'matchReason', 'lastActive'])
+        );
 
-      // No one can delete a user profile through the client SDK.
       allow delete: if false;
     }
-
     // ─────────────────────────────────────────────
     // CURRICULUM COLLECTION
     // /curriculum/{progressId}

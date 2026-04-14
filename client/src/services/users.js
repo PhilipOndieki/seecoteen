@@ -106,3 +106,16 @@ export async function getUnmatchedSeniors() {
     return { id: d.id, ...safeData }
   })
 }
+
+/**
+ * Remove the match between two users by nulling both matchedPartnerId fields.
+ * @param {string} uid
+ * @param {string} partnerId
+ * @returns {Promise<void>}
+ */
+export async function unmatchUsers(uid, partnerId) {
+  await Promise.all([
+    updateUserProfile(uid, { matchedPartnerId: null, matchReason: null }),
+    updateUserProfile(partnerId, { matchedPartnerId: null, matchReason: null }),
+  ])
+}

@@ -62,23 +62,34 @@ function SeniorDirectory() {
     if (!userProfile?.uid || !senior?.id) return
     setMatching(true)
     try {
-      const matchReason = `${userProfile.name} chose to be ${senior.name}'s tech tutor on Seecoteen.`
-      await setUserMatch(userProfile.uid, senior.id, matchReason)
-      await setUserMatch(senior.id, userProfile.uid, matchReason)
-      await refreshUserProfile()
+        const matchReason = `${userProfile.name} chose to be ${senior.name}'s tech tutor on Seecoteen.`
 
-      setToast({
-        message: `You're now matched with ${senior.name}! Head to your dashboard to get started.`,
+        // Write both sides of the match concurrently
+        await Promise.all([
+        setUserMatch(userProfile.uid, senior.id, matchReason),
+        setUserMatch(senior.id, userProfile.uid, matchReason),
+        ])
+
+        // Refresh the teen's local auth state so the navbar and
+        // dashboard reflect the match immediately without a page reload
+        await refreshUserProfile()
+
+        setToast({
+        message: `You're now matched with ${senior.name}! Heading to your dashboard...`,
         type: 'success',
-      })
-      setModalOpen(false)
+        })
+        setModalOpen(false)
 
-      // Brief delay so the toast is readable, then redirect to dashboard
-      setTimeout(() => navigate(ROUTES.DASHBOARD, { replace: true }), 2000)
-    } catch {
-      setToast({ message: 'Something went wrong. Please try again.', type: 'error' })
+        // Redirect after toast is readable
+        setTimeout(() => navigate(ROUTES.DASHBOARD, { replace: true }), 2000)
+    } catch (err) {
+        console.error('Match failed:', err)
+        setToast({
+        message: 'Something went wrong creating the match. Please try again.',
+        type: 'error',
+        })
     } finally {
-      setMatching(false)
+        setMatching(false)
     }
   }
 
