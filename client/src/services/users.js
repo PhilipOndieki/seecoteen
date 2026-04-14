@@ -86,3 +86,23 @@ export async function setUserMatch(uid, partnerId, matchReason) {
 export async function completeOnboarding(uid) {
   await updateUserProfile(uid, { onboardingComplete: true })
 }
+
+/**
+ * Get all senior users who have not yet been matched with a tutor.
+ * @returns {Promise<Object[]>}
+ */
+export async function getUnmatchedSeniors() {
+  const ref = collection(db, 'users')
+  const q = query(
+    ref,
+    where('role', '==', 'senior'),
+    where('matchedPartnerId', '==', null)
+  )
+  const snap = await getDocs(q)
+  return snap.docs.map((d) => {
+    const data = d.data()
+    // Strip email before returning — never expose it to the client directory
+    const { email: _email, ...safeData } = data
+    return { id: d.id, ...safeData }
+  })
+}

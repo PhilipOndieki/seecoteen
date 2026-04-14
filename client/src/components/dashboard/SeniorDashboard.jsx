@@ -5,6 +5,7 @@ import Card from '../ui/Card.jsx'
 import Button from '../ui/Button.jsx'
 import ProgressBar from '../ui/ProgressBar.jsx'
 import Loader from '../ui/Loader.jsx'
+import { useAuth } from '../../hooks/useAuth.js'
 import { useMatch } from '../../hooks/useMatch.js'
 import { getAllProgressForUser } from '../../services/curriculum.js'
 import { getCurrentShieldScore } from '../../services/scam.js'
@@ -14,6 +15,7 @@ import { getGreetingTime, timeAgo } from '../../utils/helpers.js'
 
 function SeniorDashboard({ profile }) {
   const navigate = useNavigate()
+  const { refreshUserProfile } = useAuth()     
   const { partner, loading: matchLoading } = useMatch()
   const [curriculumData, setCurriculumData] = useState([])
   const [shieldScore, setShieldScore] = useState(0)
@@ -24,6 +26,7 @@ function SeniorDashboard({ profile }) {
     async function loadData() {
       setDataLoading(true)
       try {
+        await refreshUserProfile()  
         const [progress, score, entry] = await Promise.all([
           getAllProgressForUser(profile.uid),
           getCurrentShieldScore(profile.uid),
@@ -92,16 +95,12 @@ function SeniorDashboard({ profile }) {
               ) : (
                 <>
                   <p className="font-body text-primary/60 text-sm mb-3">
-                    Your tutor match is being arranged. Complete your profile to speed this up.
+                    You&apos;re on the list! A teen tutor will choose you soon. Make sure your profile is complete to help them find you.
                   </p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => navigate(ROUTES.ONBOARDING)}
-                    ariaLabel="Complete your profile"
-                  >
-                    Complete your profile
-                  </Button>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="w-2 h-2 bg-accent rounded-full animate-pulse" aria-hidden="true" />
+                    <p className="font-body text-xs text-accent font-medium">Waiting for a tutor match</p>
+                  </div>
                 </>
               )}
             </div>

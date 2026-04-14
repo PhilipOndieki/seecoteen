@@ -107,9 +107,18 @@ function TeenDashboard({ profile }) {
               ) : (
                 <>
                   <p className="font-body text-primary/60 text-sm mb-3">
-                    Your senior match is being arranged. We&apos;ll notify you as soon as it&apos;s ready.
+                    You haven&apos;t been matched yet. Browse available seniors and choose who you&apos;d like to mentor.
                   </p>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => navigate(ROUTES.SENIOR_DIRECTORY)}
+                    ariaLabel="Browse available seniors to find your match"
+                  >
+                    Find a Senior →
+                  </Button>
                 </>
+                
               )}
             </div>
           </div>

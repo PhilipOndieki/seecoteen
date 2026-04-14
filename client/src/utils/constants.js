@@ -7,6 +7,7 @@ export const ROUTES = {
   SCAM_SIMULATOR: '/scam-simulator',
   EXCHANGE_LOG: '/exchange-log',
   PROGRESS: '/progress',
+  SENIOR_DIRECTORY: '/seniors', 
 }
 
 export const ROLES = {

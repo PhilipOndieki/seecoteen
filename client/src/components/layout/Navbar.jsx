@@ -26,6 +26,10 @@ function Navbar() {
   const navLinks = currentUser
     ? [
         { to: ROUTES.DASHBOARD, label: 'Dashboard' },
+        // Show "Find a Senior" only for teen tutors who are not yet matched
+        ...(userProfile?.role === 'teen' && !userProfile?.matchedPartnerId
+          ? [{ to: ROUTES.SENIOR_DIRECTORY, label: 'Find a Senior' }]
+          : []),
         { to: ROUTES.CURRICULUM, label: 'Curriculum' },
         { to: ROUTES.SCAM_SIMULATOR, label: 'Scam Shield' },
         { to: ROUTES.EXCHANGE_LOG, label: 'Exchange Log' },

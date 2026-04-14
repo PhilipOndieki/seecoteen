@@ -12,6 +12,7 @@ import Curriculum from './pages/Curriculum.jsx'
 import ScamSimulator from './pages/ScamSimulator.jsx'
 import ExchangeLog from './pages/ExchangeLog.jsx'
 import Progress from './pages/Progress.jsx'
+import SeniorDirectory from './pages/SeniorDirectory.jsx'
 
 function App() {
   return (
@@ -68,6 +69,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Progress />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/seniors"
+                element={
+                  <ProtectedRoute>
+                    <SeniorDirectory />
                   </ProtectedRoute>
                 }
               />
