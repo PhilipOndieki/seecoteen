@@ -62,7 +62,7 @@ function SeniorDirectory() {
     if (!userProfile?.uid || !senior?.id) return
     setMatching(true)
     try {
-        const matchReason = `${userProfile.name} chose to be ${senior.name}'s tech tutor on Seecoteen.`
+        const matchReason = `${userProfile.name} is your tech tutor.`
 
         // Write both sides of the match concurrently
         await Promise.all([

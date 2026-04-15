@@ -127,7 +127,7 @@ function TeenDashboard({ profile }) {
                   <p className="font-body font-semibold text-primary">{partner.name}</p>
                   <p className="font-body text-primary/60 text-sm mb-1">{partner.background}</p>
                   <p className="font-body text-primary/50 text-sm mb-3 italic">
-                    {profile.matchReason || 'A wonderful match.'}
+                    Match confirmed. Time to make a difference.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Button
