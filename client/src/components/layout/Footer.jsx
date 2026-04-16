@@ -10,9 +10,6 @@ function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center" aria-hidden="true">
-                <span className="font-heading font-bold text-white text-lg">S</span>
-              </div>
               <span className="font-heading font-bold text-white text-xl">Seecoteen</span>
             </div>
             <p className="text-white/70 font-body text-sm leading-relaxed">

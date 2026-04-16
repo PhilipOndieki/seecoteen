@@ -1,0 +1,69 @@
+[debug] [2026-04-15T08:21:00.368Z] ----------------------------------------------------------------------
+[debug] [2026-04-15T08:21:00.377Z] Command:       /home/p-ondieki/.nvm/versions/node/v20.19.0/bin/node /home/p-ondieki/.nvm/versions/node/v20.19.0/bin/firebase deploy --only firestore:rules --debug
+[debug] [2026-04-15T08:21:00.378Z] CLI Version:   15.14.0
+[debug] [2026-04-15T08:21:00.378Z] Platform:      linux
+[debug] [2026-04-15T08:21:00.379Z] Node Version:  v20.19.0
+[debug] [2026-04-15T08:21:00.379Z] Time:          Wed Apr 15 2026 11:21:00 GMT+0300 (East Africa Time)
+[debug] [2026-04-15T08:21:00.384Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-15T08:21:04.773Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-15T08:21:04.780Z] > authorizing via signed-in user (philipbarongo6@gmail.com)
+[debug] [2026-04-15T08:21:04.780Z] [iam] checking project seecoteen-a9d28 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2026-04-15T08:21:04.789Z] Checked if tokens are valid: false, expires at: 1776242020528
+[debug] [2026-04-15T08:21:04.790Z] Checked if tokens are valid: false, expires at: 1776242020528
+[debug] [2026-04-15T08:21:04.794Z] > refreshing access token with scopes: []
+[debug] [2026-04-15T08:21:04.807Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-04-15T08:21:04.808Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-04-15T08:21:05.389Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-04-15T08:21:05.390Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-04-15T08:21:05.404Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/seecoteen-a9d28:testIamPermissions [none]
+[debug] [2026-04-15T08:21:05.405Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/seecoteen-a9d28:testIamPermissions  x-goog-user-project=seecoteen-a9d28
+[debug] [2026-04-15T08:21:05.405Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/seecoteen-a9d28:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2026-04-15T08:21:07.294Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/seecoteen-a9d28:testIamPermissions 200
+[debug] [2026-04-15T08:21:07.294Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/seecoteen-a9d28:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'seecoteen-a9d28'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-04-15T08:21:07.304Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:07.305Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:07.305Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/seecoteen-a9d28/databases/(default) [none]
+[debug] [2026-04-15T08:21:08.326Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/seecoteen-a9d28/databases/(default) 200
+[debug] [2026-04-15T08:21:08.327Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/seecoteen-a9d28/databases/(default) {"name":"projects/seecoteen-a9d28/databases/(default)","uid":"ea1e142c-97f6-4d9d-acf9-e330d6e2b600","createTime":"2026-04-12T19:35:45.350362Z","updateTime":"2026-04-12T19:35:45.350362Z","locationId":"eur3","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-04-15T07:21:08.277352Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"e","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IIX80q6275MDMOnm1dGQ65MD"}
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2026-04-15T08:21:08.332Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:08.332Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:08.333Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28:test [none]
+[debug] [2026-04-15T08:21:08.333Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28:test [omitted]
+[debug] [2026-04-15T08:21:09.583Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28:test 200
+[debug] [2026-04-15T08:21:09.583Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28:test {"issues":[{"sourcePosition":{"fileName":"firestore.rules","line":32,"column":14,"currentOffset":929,"endOffset":936},"description":"Unused function: isSenior.","severity":"WARNING"},{"sourcePosition":{"fileName":"firestore.rules","line":37,"column":14,"currentOffset":1055,"endOffset":1060},"description":"Unused function: isTeen.","severity":"WARNING"}]}
+[warn] ⚠  [W] 32:14 - Unused function: isSenior. 
+[warn] ⚠  [W] 37:14 - Unused function: isTeen. 
+[info] ✔  cloud.firestore: rules file firestore.rules compiled successfully 
+[debug] [2026-04-15T08:21:09.587Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:09.587Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:09.589Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases pageSize=10&pageToken=
+[debug] [2026-04-15T08:21:10.390Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases 200
+[debug] [2026-04-15T08:21:10.391Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases {"releases":[{"name":"projects/seecoteen-a9d28/releases/cloud.firestore","rulesetName":"projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc","createTime":"2026-04-12T19:35:48.755272Z","updateTime":"2026-04-15T08:09:34.510955Z"}]}
+[debug] [2026-04-15T08:21:10.392Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:10.392Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:10.392Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc [none]
+[debug] [2026-04-15T08:21:11.194Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc 200
+[debug] [2026-04-15T08:21:11.194Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc [omitted]
+[info] i  firestore: latest version of firestore.rules already up to date, skipping upload... 
+[debug] [2026-04-15T08:21:11.197Z] [rules] releasing cloud.firestore/(default) with ruleset projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc
+[debug] [2026-04-15T08:21:11.198Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:11.199Z] Checked if tokens are valid: true, expires at: 1776244864391
+[debug] [2026-04-15T08:21:11.199Z] >>> [apiv2][query] PATCH https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases/cloud.firestore/(default) [none]
+[debug] [2026-04-15T08:21:11.200Z] >>> [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases/cloud.firestore/(default) {"release":{"name":"projects/seecoteen-a9d28/releases/cloud.firestore/(default)","rulesetName":"projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc"}}
+[debug] [2026-04-15T08:21:12.226Z] <<< [apiv2][status] PATCH https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases/cloud.firestore/(default) 200
+[debug] [2026-04-15T08:21:12.227Z] <<< [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/seecoteen-a9d28/releases/cloud.firestore/(default) {"name":"projects/seecoteen-a9d28/releases/cloud.firestore","rulesetName":"projects/seecoteen-a9d28/rulesets/ff22fcbd-6ef2-4ae1-8c19-df67eb2e68dc","createTime":"2026-04-12T19:35:48.755272Z","updateTime":"2026-04-15T08:21:12.089223Z"}
+[debug] [2026-04-15T08:21:12.227Z] [rules] updated release projects/seecoteen-a9d28/releases/cloud.firestore
+[info] ✔  firestore: released rules firestore.rules to cloud.firestore 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/seecoteen-a9d28/overview

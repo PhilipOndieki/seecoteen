@@ -134,7 +134,7 @@ function Auth() {
             {mode === 'signup' ? 'Create your account' : 'Welcome back'}
           </h1>
           <p className="font-body text-primary/60 mt-1">
-            {mode === 'signup' ? 'Join free — no credit card needed.' : 'Sign in to continue.'}
+            {mode === 'signup' ? 'Join free, no credit card needed.' : 'Sign in to continue.'}
           </p>
         </div>
 

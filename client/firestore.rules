@@ -204,7 +204,48 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if false;
     }
-
+    
+    // MESSAGES COLLECTION
+    // /messages/{messageId}
+    // conversationId format: "{uid1}_{uid2}" (alphabetically sorted)
+    
+    match /messages/{messageId} {
+    
+      // Is the requesting user a participant in this message's conversation?
+      function isMessageParticipant() {
+        return isAuth() && (
+          request.auth.uid == resource.data.seniorId ||
+          request.auth.uid == resource.data.teenId
+        );
+      }
+    
+      // Both participants can read messages in their shared conversation.
+      allow read: if isMessageParticipant();
+    
+      // Either participant can send a message — but only as themselves.
+      allow create: if isAuth()
+        && request.resource.data.senderId == request.auth.uid
+        && (
+          request.resource.data.seniorId == request.auth.uid ||
+          request.resource.data.teenId == request.auth.uid
+        )
+        && request.resource.data.keys().hasAll([
+          'conversationId', 'seniorId', 'teenId', 'senderId', 'text', 'read', 'timestamp'
+        ])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 1000
+        && request.resource.data.read == false;
+    
+      // Only the recipient can mark a message as read (they can't change anything else).
+      allow update: if isMessageParticipant()
+        && request.auth.uid != resource.data.senderId
+        && onlyUpdates(['read'])
+        && request.resource.data.read == true;
+    
+      allow delete: if false;
+    }
+    
     // ─────────────────────────────────────────────
     // DENY ALL OTHER PATHS
     // ─────────────────────────────────────────────

@@ -13,6 +13,7 @@ import ScamSimulator from './pages/ScamSimulator.jsx'
 import ExchangeLog from './pages/ExchangeLog.jsx'
 import Progress from './pages/Progress.jsx'
 import SeniorDirectory from './pages/SeniorDirectory.jsx'
+import Chat from './pages/Chat.jsx'
 
 function App() {
   return (
@@ -80,6 +81,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/chat"
+                element={
+                  <ProtectedRoute>
+                    <Chat />
+                  </ProtectedRoute>
+                  }
+                />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

@@ -8,6 +8,7 @@ export const ROUTES = {
   EXCHANGE_LOG: '/exchange-log',
   PROGRESS: '/progress',
   SENIOR_DIRECTORY: '/seniors', 
+  CHAT: '/chat',
 }
 
 export const ROLES = {
