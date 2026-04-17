@@ -4,9 +4,9 @@ import App from './App.jsx'
 import './index.css'
 import { inject } from '@vercel/analytics';
 
-if (import.meta.env.PROD) {
-  inject();
-}
+// if (import.meta.env.PROD) {
+//   inject();
+// }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

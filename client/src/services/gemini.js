@@ -1,26 +1,16 @@
 import { safeParseJSON } from '../utils/helpers.js'
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY
-const GEMINI_MODEL = 'google/gemini-2.0-flash'
-const API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models'
-
 /**
  * Make a raw request to the Gemini API.
  * @param {string} prompt
  * @returns {Promise<string>} The text response
  */
 async function callGemini(prompt) {
-  const url = `${API_BASE}/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`
-
-  const response = await fetch(url, {
+  const response = await fetch('/api/gemini', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [
-        {
-          parts: [{ text: prompt }],
-        },
-      ],
+      contents: [{ parts: [{ text: prompt }] }],
       generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 1024,
@@ -30,7 +20,7 @@ async function callGemini(prompt) {
 
   if (!response.ok) {
     const error = await response.text()
-    throw new Error(`Gemini API error ${response.status}: ${error}`)
+    throw new Error(`Gemini proxy error ${response.status}: ${error}`)
   }
 
   const data = await response.json()
