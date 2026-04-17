@@ -50,6 +50,7 @@ function Navbar() {
         { to: ROUTES.SCAM_SIMULATOR, label: 'Scam Shield' },
         { to: ROUTES.EXCHANGE_LOG, label: 'Exchange Log' },
         { to: ROUTES.PROGRESS, label: 'Progress' },
+        { to: ROUTES.CHAT, label: 'Messages' },
       ]
     : []
 

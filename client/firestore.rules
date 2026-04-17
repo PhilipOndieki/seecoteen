@@ -208,21 +208,16 @@ service cloud.firestore {
     // MESSAGES COLLECTION
     // /messages/{messageId}
     // conversationId format: "{uid1}_{uid2}" (alphabetically sorted)
-    
     match /messages/{messageId} {
-    
-      // Is the requesting user a participant in this message's conversation?
-      function isMessageParticipant() {
-        return isAuth() && (
+
+      // Read allowed if the requesting user is either participant
+      allow read: if isAuth()
+        && (
           request.auth.uid == resource.data.seniorId ||
           request.auth.uid == resource.data.teenId
         );
-      }
-    
-      // Both participants can read messages in their shared conversation.
-      allow read: if isMessageParticipant();
-    
-      // Either participant can send a message — but only as themselves.
+
+      // Either participant can send — only as themselves
       allow create: if isAuth()
         && request.resource.data.senderId == request.auth.uid
         && (
@@ -236,16 +231,19 @@ service cloud.firestore {
         && request.resource.data.text.size() > 0
         && request.resource.data.text.size() <= 1000
         && request.resource.data.read == false;
-    
-      // Only the recipient can mark a message as read (they can't change anything else).
-      allow update: if isMessageParticipant()
+
+      // Only the recipient can mark as read
+      allow update: if isAuth()
         && request.auth.uid != resource.data.senderId
+        && (
+          request.auth.uid == resource.data.seniorId ||
+          request.auth.uid == resource.data.teenId
+        )
         && onlyUpdates(['read'])
         && request.resource.data.read == true;
-    
+
       allow delete: if false;
     }
-    
     // ─────────────────────────────────────────────
     // DENY ALL OTHER PATHS
     // ─────────────────────────────────────────────

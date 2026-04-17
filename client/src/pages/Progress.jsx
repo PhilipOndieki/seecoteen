@@ -273,7 +273,6 @@ function TeenProgress({ profile, partner }) {
 
       {/* Impact card */}
       <Card
-        ref={impactCardRef}
         className="bg-gradient-to-br from-primary to-blue-900 text-white"
       >
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
